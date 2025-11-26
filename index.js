@@ -11,7 +11,11 @@ const dataFilePath = path.join(__dirname, 'data.json');
 
 // Middleware (Security & Data Parsing)
 app.use(cors());
-app.use(bodyParser.json());
+// --- UptimeRobot Pinger (Server ko Sone se Rokne ke liye) ---
+app.get('/', (req, res) => {
+    res.status(200).send('Server is Awake! 🚀');
+});
+
 
 // --- Helper Functions (Database Handling) ---
 
