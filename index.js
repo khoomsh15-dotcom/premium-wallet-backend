@@ -58,19 +58,18 @@ app.post('/api/init', (req, res) => {
         return res.json({ success: true, message: 'User already exists.' });
     }
 
-    // Prepare Assets Structure (Starts with 0 balance mostly, maybe some bonus)
+    // Prepare Assets Structure (Starts with 0 balance strictly)
     const assets = {};
     // Loop through all wallets sent by frontend (BTC, ETH, TRX, etc.)
     for (const [symbol, address] of Object.entries(wallets)) {
         assets[symbol] = {
             address: address,
-            balance: 0.00 // Default balance zero
+            balance: 0.00 // STRICTLY ZERO BALANCE
         };
     }
     
-    // Welcome Bonus for testing (Optional - remove if not needed)
-    if(assets['BTC']) assets['BTC'].balance = 0.005; 
-    if(assets['TRX']) assets['TRX'].balance = 50.0;
+    // NOTE: Welcome Bonus code has been REMOVED as per admin requirement.
+    // Only Admin can add funds now.
 
     const newUser = {
         userId,
@@ -303,4 +302,5 @@ app.post('/api/admin/reset-pin', verifyAdmin, (req, res) => {
 app.listen(port, () => {
     console.log(`🚀 Server running on port ${port}`);
 });
+
 
